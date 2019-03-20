@@ -46,49 +46,25 @@ void updateController() {
       flag = 0;
     }
 
-    if (orbisPadGetButtonPressed(ORBISPAD_UP)) {
+    if (orbisPadGetButtonPressed(ORBISPAD_UP) || orbisPadGetButtonHold(ORBISPAD_UP)) {
       if (vibra.largeMotor < 255) {
         vibra.largeMotor++;
       }
     }
 
-    if (orbisPadGetButtonPressed(ORBISPAD_DOWN)) {
+    if (orbisPadGetButtonPressed(ORBISPAD_DOWN) || orbisPadGetButtonHold(ORBISPAD_DOWN)) {
       if (vibra.largeMotor > 0) {
         vibra.largeMotor--;
       }
     }
 
-    if (orbisPadGetButtonPressed(ORBISPAD_RIGHT)) {
+    if (orbisPadGetButtonPressed(ORBISPAD_RIGHT) || orbisPadGetButtonHold(ORBISPAD_RIGHT)) {
       if (vibra.smallMotor < 255) {
         vibra.smallMotor++;
       }
     }
 
-    if (orbisPadGetButtonPressed(ORBISPAD_LEFT)) {
-      if (vibra.smallMotor > 0) {
-        vibra.smallMotor--;
-      }
-    }
-
-    if (orbisPadGetButtonHold(ORBISPAD_UP)) {
-      if (vibra.largeMotor < 255) {
-        vibra.largeMotor++;
-      }
-    }
-
-    if (orbisPadGetButtonHold(ORBISPAD_DOWN)) {
-      if (vibra.largeMotor > 0) {
-        vibra.largeMotor--;
-      }
-    }
-
-    if (orbisPadGetButtonHold(ORBISPAD_RIGHT)) {
-        if (vibra.smallMotor < 255) {
-          vibra.smallMotor++;
-        }
-    }
-
-    if (orbisPadGetButtonHold(ORBISPAD_LEFT)) {
+    if (orbisPadGetButtonPressed(ORBISPAD_LEFT) || orbisPadGetButtonHold(ORBISPAD_LEFT)) {
       if (vibra.smallMotor > 0) {
         vibra.smallMotor--;
       }
