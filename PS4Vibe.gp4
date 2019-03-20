@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<psproject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" fmt="gp4" version="1000">
+  <volume>
+    <volume_type>pkg_ps4_app</volume_type>
+    <volume_ts>2012-01-01 08:00:00</volume_ts>
+    <package content_id="IV0000-AZIF00001_00-PS4VIBE000000000" passcode="00000000000000000000000000000000" storage_type="digital50" app_type="full" />
+    <chunk_info chunk_count="1" scenario_count="1">
+      <chunks>
+        <chunk id="0" layer_no="0" label="Chunk #0" />
+      </chunks>
+      <scenarios default_id="0">
+        <scenario id="0" type="sp" initial_chunk_count="1" label="Scenario #0">0</scenario>
+      </scenarios>
+    </chunk_info>
+  </volume>
+  <files img_no="0">
+    <file targ_path="sce_sys/icon0.dds" orig_path="sce_sys\icon0.dds" />
+    <file targ_path="sce_sys/icon0.png" orig_path="sce_sys\icon0.png" />
+    <file targ_path="sce_sys/param.sfo" orig_path="sce_sys\param.sfo" />
+    <file targ_path="sce_sys/pic0.dds" orig_path="sce_sys\pic0.dds" />
+    <file targ_path="sce_sys/pic0.png" orig_path="sce_sys\pic0.png" />
+    <file targ_path="sce_sys/pic1.dds" orig_path="sce_sys\pic1.dds" />
+    <file targ_path="sce_sys/pic1.png" orig_path="sce_sys\pic1.png" />
+    <file targ_path="eboot.bin" orig_path="bin\eboot.bin" />
+  </files>
+  <rootdir>
+    <dir targ_name="sce_sys" />
+  </rootdir>
+</psproject>
