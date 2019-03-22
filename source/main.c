@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <errordialog.h>
 #include <kernel.h>
 #include <pad.h>
-#include <sysmodule.h>
 #include <systemservice.h>
 
 #include <orbis2d.h>
@@ -41,8 +39,6 @@ void updateController() {
   ret = orbisPadUpdate();
   if (ret == 0) {
     if (orbisPadGetButtonPressed(ORBISPAD_OPTIONS | ORBISPAD_L3) || orbisPadGetButtonHold(ORBISPAD_OPTIONS | ORBISPAD_L3)) {
-      vibra.largeMotor = 0;
-      vibra.smallMotor = 0;
       flag = 0;
     }
 
@@ -72,33 +68,6 @@ void updateController() {
   }
 }
 
-void errorDialog(SceUserServiceUserId userId, int32_t errorCode) {
-  int ret;
-
-  sceSystemServiceHideSplashScreen();
-
-  ret = sceSysmoduleLoadModule(SCE_SYSMODULE_ERROR_DIALOG);
-  if (ret != 0) {
-    return;
-  }
-
-  sceErrorDialogInitialize();
-  if (ret != 0 && ret != 0x80ED0002) {
-    return;
-  }
-
-  SceErrorDialogParam param;
-  sceErrorDialogParamInitialize(&param);
-
-  param.errorCode = errorCode;
-	param.userId = userId;
-
-  ret = sceErrorDialogOpen(&param);
-  if (ret != 0) {
-    return;
-  }
-}
-
 void finishApp() {
   orbisPadFinish();
   orbis2dFinish();
@@ -121,7 +90,6 @@ void initApp() {
   sceSystemServiceHideSplashScreen();
 }
 
-
 int main(int argc, char *argv[]) {
   int ret;
   uint32_t c1, c2;
@@ -137,19 +105,12 @@ int main(int argc, char *argv[]) {
   debugNetPrintf(DEBUG, "Initializing App\n");
   initApp();
 
-  char title[64] = "PSVibe: PS4 Edition by Al Azif";
-
-  char line1[64] = "Press UP/DOWN to control large motor speed";
-  char line2[64] = "Press LEFT/RIGHT to control small motor speed";
-
-  char line3[64];
-  char line4[64];
-
-  char line5[64] = "Press OPTIONS + L3 to exit";
+  char largeMotorStatus[24];
+  char smallMotorStatus[24];
 
   c1 = 0xFFFFFFFF;
-	c2 = 0xFFFFFFFF;
-	update_gradient(&c1, &c2);
+  c2 = 0xFFFFFFFF;
+  update_gradient(&c1, &c2);
 
   conf->bgColor = 0xFF000000;
   ScePadLightBarParam lightbarColor;
@@ -164,14 +125,15 @@ int main(int argc, char *argv[]) {
     orbis2dStartDrawing();
     orbis2dClearBuffer(0);
 
-    sprintf(line3, "Large Motor Speed: %i", vibra.largeMotor);
-    sprintf(line4, "Small Motor Speed: %i", vibra.smallMotor);
-    print_text(20, 20, title);
-    print_text(20, 60, line1);
-    print_text(20, 80, line2);
-    print_text(20, 120, line3);
-    print_text(20, 140, line4);
-    print_text(20, 180, line5);
+    sprintf(largeMotorStatus, "Large Motor Speed: %i", vibra.largeMotor);
+    sprintf(smallMotorStatus, "Small Motor Speed: %i", vibra.smallMotor);
+
+    print_text(20, 20, "PSVibe: PS4 Edition by Al Azif");
+    print_text(20, 60, "Press UP/DOWN to control large motor speed");
+    print_text(20, 80, "Press LEFT/RIGHT to control small motor speed");
+    print_text(20, 120, largeMotorStatus);
+    print_text(20, 140, smallMotorStatus);
+    print_text(20, 180, "Press OPTIONS + L3 to exit");
 
     scePadSetVibration(myConf->confPad->padHandle, &vibra);
 
@@ -182,6 +144,8 @@ int main(int argc, char *argv[]) {
     sceKernelUsleep(1000);
   }
 
+  vibra.largeMotor = 0;
+  vibra.smallMotor = 0;
   scePadSetVibration(myConf->confPad->padHandle, &vibra);
 
   orbis2dStartDrawing();
