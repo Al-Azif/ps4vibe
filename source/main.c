@@ -152,6 +152,11 @@ int main(int argc, char *argv[]) {
 	update_gradient(&c1, &c2);
 
   conf->bgColor = 0xFF000000;
+  ScePadLightBarParam lightbarColor;
+  lightbarColor.r = 190;
+  lightbarColor.g = 122;
+  lightbarColor.b = 169;
+  scePadSetLightBar(myConf->confPad->padHandle, &lightbarColor);
 
   while (flag) {
     updateController();
