@@ -15,7 +15,6 @@
 #include <ps4link.h>
 
 int flag = 0;
-
 int64_t flipArg = 0;
 
 Orbis2dConfig *conf;
